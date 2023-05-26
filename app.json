@@ -25,6 +25,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "a7d6d2dc-a44a-4bd1-8b97-2dbac7e13851"
+      }
+    },
+    "owner": "hrithiktg1"
   }
 }
