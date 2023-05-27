@@ -5,11 +5,13 @@ import RestaurantScreen from './src/screens/RestaurantScreen';
 import { createContext, useReducer, useState } from 'react';
 import cartReducer from './src/utils/CartReducer';
 import { AppContext } from './src/contexts/AppContext';
+import CheckoutScreen from './src/screens/CheckoutScreen';
+import CartScreen from './src/screens/CartScreen';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const [cart, cartDispatch] = useReducer(cartReducer, {})
+  const [cart, cartDispatch] = useReducer(cartReducer, [])
 
   return (
     <AppContext.Provider value={{
@@ -19,6 +21,13 @@ export default function App() {
         <Stack.Navigator>
           <Stack.Screen name='HomeScreen' component={HomeScreen} />
           <Stack.Screen name="RestaurantScreen" component={RestaurantScreen} />
+          <Stack.Screen name="CartScreen" component={CartScreen} options={{
+            presentation: "modal",
+            headerShown: false,
+          }} />
+          <Stack.Screen name="CheckoutScreen" component={CheckoutScreen} options={{
+            headerShown: false,
+          }} />
         </Stack.Navigator>
       </NavigationContainer>
     </AppContext.Provider>

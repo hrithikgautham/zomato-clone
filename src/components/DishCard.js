@@ -6,7 +6,7 @@ import { AppContext } from '../contexts/AppContext';
 
 const DishCard = ({ id, title, description, price, }) => {
 
-  const { cartDispatch, } = useContext(AppContext);
+  const { cart, cartDispatch, } = useContext(AppContext);
 
   const [selected, setSelected] = useState(false);
   const [quantity, setQuantity] = useState(0);
@@ -31,6 +31,13 @@ const DishCard = ({ id, title, description, price, }) => {
       })
     }
   }, [quantity]);
+
+  useEffect(() => {
+    if (cart.length == 0) {
+      setSelected(false)
+      setQuantity(0)
+    }
+  }, [cart]);
 
   return (
     <TouchableOpacity disabled={selected} className="bg-white border border-gray-200 p-4" onPress={() => {

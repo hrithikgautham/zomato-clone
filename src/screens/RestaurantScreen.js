@@ -2,7 +2,7 @@ import { View, Text, Image, ScrollView, TouchableOpacity, Alert, } from 'react-n
 import React, { useLayoutEffect, useContext, useEffect } from 'react'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { ArrowLeftIcon } from 'react-native-heroicons/outline';
-import { ArrowRightIcon, StarIcon } from 'react-native-heroicons/solid'
+import { ArrowRightIcon, ShoppingCartIcon, StarIcon } from 'react-native-heroicons/solid'
 import { MapPinIcon } from 'react-native-heroicons/outline'
 import DishCard from '../components/DishCard';
 import { AppContext } from '../contexts/AppContext';
@@ -58,7 +58,15 @@ const RestaurantScreen = () => {
 
 
         <View className="bg-gray-200 mb-40">
-          <Text className="text-3xl font-bold p-4">Menu</Text>
+          <View className="flex-row items-center justify-between p-4" >
+            <Text className="text-3xl font-bold">Menu</Text>
+            <TouchableOpacity onPress={() => {
+              // Alert.alert(JSON.stringify(cart))
+              navigation.navigate("CartScreen")
+            }}>
+              <ShoppingCartIcon size={30} />
+            </TouchableOpacity>
+          </View>
           <DishCard
             id={1}
             title={'Peri Peri Nuts'}
@@ -90,14 +98,11 @@ const RestaurantScreen = () => {
             price={200}
           />
         </View>
-
       </ScrollView>
       {
-        Object.keys(cart).length > 0 && <TouchableOpacity className="absolute bottom-10 left-0 right-0 p-5 bg-red-700 mx-5 rounded-md" ><Text className="font-bold text-white text-center text-lg">₹{Object.keys(cart).reduce((p, k) => {
-          if (cart[k])
-            return p + (cart[k].price * cart[k].quantity)
-          return p;
-        }, 0)} Checkout</Text></TouchableOpacity>
+        cart.length > 0 && <TouchableOpacity className="absolute bottom-10 left-0 right-0 p-5 bg-red-700 mx-5 rounded-md" onPress={() => {
+          navigation.navigate("CheckoutScreen")
+        }}><Text className="font-bold text-white text-center text-lg">₹{cart.reduce((p, c) => p + (c.price * c.quantity), 0)} Checkout</Text></TouchableOpacity>
       }
     </>
   )
